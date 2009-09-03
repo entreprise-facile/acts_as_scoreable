@@ -1,0 +1,28 @@
+ActsAsScoreable
+===============
+
+This is a simple plugin to add score to a model. I'm lame in english, so look at the example.
+
+Example
+=======
+
+app/models/YourModel.rb :
+
+	acts_as_scoreable
+	
+or, if you want to use a custom score field :
+	
+	acts_as_scoreable :acts_as_scoreable_text_field => :points
+	
+then you can do :
+
+YourModel.score #it will return the current score if the score field is "score", if it's "point", just do YourModel.points
+YourModel.score_up #it will score_up your score (no matters the score field)
+YourModel.score_down #it will score_down your score (no matters the score field)
+YourModel.score=4 #it will define the current score to 4 (no matters the score field)
+
+You can also use this helper :
+
+<%= vote(item.id) %> to display the vote arrows
+
+Copyright (c) 2009 Entreprise-Facile SAS / Loïc CHOLLIER, released under the MIT license
