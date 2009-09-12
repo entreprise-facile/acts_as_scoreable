@@ -20,8 +20,8 @@ class ScoresController < ActionController::Base
           session[:voted_up]["#{params[:item]}"][params[:id].to_i] = 1
           session[:voted_down]["#{params[:item]}"][params[:id].to_i] = 0
           render :update do |page|
-            page.call 'Element.setStyle', "downarrow-#{params[:id]}", "background-image: url('/images/adowngray.gif')"
-            page.call 'Element.setStyle', "uparrow-#{params[:id]}", "background-image: url('/images/aupmod.gif')"
+            page.replace_html "dislike-#{params[:id]}", "-&nbsp;" + vote_down_link(@entry)
+            page.replace_html "like-#{params[:id]}", "&nbsp;-&nbsp;" + vote_up_link_gray(@entry) + "&nbsp;"
             page.replace_html "count-#{params[:id]}", (@entry.score+2).to_s
           end
         else
@@ -30,7 +30,7 @@ class ScoresController < ActionController::Base
           session[:voted_up]["#{params[:item]}"][params[:id].to_i] = 1
           session[:voted_down]["#{params[:item]}"][params[:id].to_i] = 0
           render :update do |page|
-            page.call 'Element.setStyle', "uparrow-#{params[:id]}", "background-image: url('/images/aupmod.gif')"
+            page.replace_html "like-#{params[:id]}", "&nbsp;-&nbsp;" + vote_up_link_gray(@entry) + "&nbsp;"
             page.replace_html "count-#{params[:id]}", (@entry.score+1).to_s
           end
         end
@@ -40,7 +40,7 @@ class ScoresController < ActionController::Base
         session[:voted_up]["#{params[:item]}"][params[:id].to_i] = 0
         session[:voted_down]["#{params[:item]}"][params[:id].to_i] = 0
         render :update do |page|
-          page.call 'Element.setStyle', "uparrow-#{params[:id]}", "background-image: url('/images/aupgray.gif')"
+          page.replace_html "like-#{params[:id]}", "&nbsp;-&nbsp;" + vote_up_link(@entry) + "&nbsp;"
           page.replace_html "count-#{params[:id]}", (@entry.score-1).to_s
         end
       end
@@ -65,8 +65,8 @@ class ScoresController < ActionController::Base
           session[:voted_up]["#{params[:item]}"][params[:id].to_i] = 0
           session[:voted_down]["#{params[:item]}"][params[:id].to_i] = 1
           render :update do |page|
-            page.call 'Element.setStyle', "uparrow-#{params[:id]}", "background-image: url('/images/aupgray.gif')"
-            page.call 'Element.setStyle', "downarrow-#{params[:id]}", "background-image: url('/images/adownmod.gif')"
+            page.replace_html "like-#{params[:id]}", "&nbsp;-&nbsp;" + vote_up_link(@entry) + "&nbsp;"
+            page.replace_html "dislike-#{params[:id]}", "-&nbsp;" + vote_down_link_gray(@entry)
             page.replace_html "count-#{params[:id]}", (@entry.score-2).to_s
           end
         else
@@ -75,7 +75,7 @@ class ScoresController < ActionController::Base
           session[:voted_up]["#{params[:item]}"][params[:id].to_i] = 0
           session[:voted_down]["#{params[:item]}"][params[:id].to_i] = 1
           render :update do |page|
-            page.call 'Element.setStyle', "downarrow-#{params[:id]}", "background-image: url('/images/adownmod.gif')"
+            page.replace_html "dislike-#{params[:id]}", "-&nbsp;" + vote_down_link_gray(@entry)
             page.replace_html "count-#{params[:id]}", (@entry.score-1).to_s
           end
         end
@@ -85,7 +85,7 @@ class ScoresController < ActionController::Base
         session[:voted_up]["#{params[:item]}"][params[:id].to_i] = 0
         session[:voted_down]["#{params[:item]}"][params[:id].to_i] = 0
         render :update do |page|
-          page.call 'Element.setStyle', "downarrow-#{params[:id]}", "background-image: url('/images/adowngray.gif')"
+          page.replace_html "dislike-#{params[:id]}", "-&nbsp;" + vote_down_link(@entry)
           page.replace_html "count-#{params[:id]}", (@entry.score+1).to_s
         end
       end

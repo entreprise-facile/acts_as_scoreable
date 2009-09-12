@@ -1,5 +1,5 @@
 # ActsAsScoreable
-%w{ helpers controllers }.each do |dir|
+%w{ models helpers controllers }.each do |dir|
   path = File.join(File.dirname(__FILE__), 'app', dir)
   $LOAD_PATH << path
   ActiveSupport::Dependencies.load_paths << path
